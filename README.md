@@ -7,7 +7,7 @@ GitHub-ready, webhook-based Telegram bot for Vercel.
 - Random ❤️ 🔥 👍 😍 reaction
 - Group and supergroup messages
 - Channel posts
-- Five rotating welcome videos stored in this repository
+- Five rotating welcome videos from direct MP4 URLs
 - Welcome name + bot description
 - Add to Group/Channel button
 - Language selector
