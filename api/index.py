@@ -4,9 +4,15 @@ import random
 import urllib.request
 from http.server import BaseHTTPRequestHandler
 
-from api.storage import (
-    save_user,
-    get_user,
+# Vercel loads api/index.py directly. Add this directory so the
+# sibling storage.py module is always importable.
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from storage import (
+    add_user,
+    set_language,
+    get as get_user,
     get_all_user_ids,
     get_users,
 )
@@ -58,43 +64,11 @@ WELCOME_VIDEOS = [
 #
 
 REACTIONS = [
-    "👍",
-    "👎",
-    "❤",
-    "🔥",
-    "🥰",
-    "👏",
-    "😁",
-    "🤔",
-    "🤯",
-    "😱",
-    "🤬",
-    "😢",
-    "🎉",
-    "🤩",
-    "🤮",
-    "💩",
-    "🙏",
-    "👌",
-    "🕊",
-    "🤡",
-    "🥱",
-    "🥴",
-    "😍",
-    "😘",
-    "😎",
-    "🤣",
-    "😂",
-    "😇",
-    "😡",
-    "😱",
-    "🤗",
-    "🫡",
-    "🫶",
-    "💯",
-    "✨",
-    "🎊",
-    "❤️",
+    "👍", "👎", "❤", "🔥", "🥰", "👏", "😁", "🤔",
+    "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩",
+    "🙏", "⚡", "🏆", "🌚", "🌭", "💔", "🍾", "💯",
+    "🤣", "😎", "😍", "😘", "😇", "😡", "🤗", "🫡",
+    "🫶", "✨", "🎊", "❤️"
 ]
 
 
@@ -313,6 +287,9 @@ TEXT = {
 # ============================================================
 
 def api(method, data=None):
+
+    if not BOT_TOKEN:
+        raise RuntimeError("BOT_TOKEN is not configured")
 
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/{method}"
 
