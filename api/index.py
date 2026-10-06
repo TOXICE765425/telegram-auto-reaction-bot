@@ -4,12 +4,11 @@ import random
 import urllib.request
 from http.server import BaseHTTPRequestHandler
 
-from storage import (
-    add_user,
-    get_all_user_ids,
+from api.storage import (
+    save_user,
     get_user,
+    get_all_user_ids,
     get_users,
-    set_language
 )
 
 # ============================================================
