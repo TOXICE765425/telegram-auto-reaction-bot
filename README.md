@@ -5,6 +5,7 @@ GitHub-ready, webhook-based Telegram bot for Vercel.
 ## Features
 
 - Random ❤️ 🔥 👍 😍 reaction
+- Private chat messages (including `/start`)
 - Group and supergroup messages
 - Channel posts
 - Five rotating welcome videos from direct MP4 URLs
@@ -71,6 +72,10 @@ Check it:
 ```text
 https://api.telegram.org/botYOUR_BOT_TOKEN/getWebhookInfo
 ```
+
+## Private-chat reactions
+
+The bot also attempts to react to messages in the user's private chat, including the `/start` message. If Telegram rejects a particular reaction or the chat/message type does not allow it, the bot silently continues and still sends the normal reply.
 
 ## Telegram permissions
 
