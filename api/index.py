@@ -386,9 +386,21 @@ def send_video(chat_id, video, caption, markup=None):
 # REACTION
 # ============================================================
 
-def react(chat_id, message_id):
+def react(chat_id, message_id, private=False):
 
-    emoji = random.choice(REACTIONS)
+    # Keep private-chat reactions on a conservative set of common
+    # Telegram emoji reactions. Group/channel behavior keeps using
+    # the full configured pool below.
+    pool = (
+        [
+            "👍", "👎", "❤", "🔥", "🥰", "👏", "😁", "🤔",
+            "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩",
+            "🙏", "💔", "💯", "🤣", "🏆", "🍾", "🌚", "🌭"
+        ]
+        if private else REACTIONS
+    )
+
+    emoji = random.choice(pool)
 
     return api(
         "setMessageReaction",
@@ -992,6 +1004,21 @@ def process(update):
                     {}
                 )
             )
+
+            # React to the user's private message as well. This includes
+            # /start, so the user gets an immediate reaction in the DM.
+            try:
+
+                react(
+                    chat["id"],
+                    msg["message_id"],
+                    private=True
+                )
+
+            except Exception:
+
+                # A reaction must never stop the normal bot reply.
+                pass
 
             private_message(
                 msg
