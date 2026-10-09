@@ -426,7 +426,6 @@ def start_video_gate(message):
     caption = (
         f"{t(lang, 'welcome', name=name)}\n\n"
         f"{t(lang, 'description')}\n\n"
-        f"{t(lang, 'gate_instruction')}\n\n"
         "👑 Developer: Toxice Hacker"
     )
     unlock_at = int(time.time()) + START_GATE_SECONDS
