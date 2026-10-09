@@ -54,7 +54,7 @@ WELCOME_VIDEOS = [
 
     "https://videotourl.com/videos/1791280942521-6b6d5f7e-cb3a-499d-aa81-5cb4426b0ff6.mp4",
 
-    "https://image-link.edgeone.app/1791282125456-wsx20r.mp4",
+    "https://yourimageshare.com/ib/aLiKKKuG3P.mp4",
 
     "https://videotourl.com/videos/1791282441015-51991811-7fa2-4f08-8ee0-13e1812e1092.mp4",
 ]
