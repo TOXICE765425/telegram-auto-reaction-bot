@@ -1,0 +1,17 @@
+{
+  "welcome": "환영합니다, {name}! 👋",
+  "description": "저는 자동 반응 봇입니다. 그룹이나 채널에 추가하면 새 메시지에 무작위 반응을 남깁니다.",
+  "add": "➕ 그룹/채널에 추가",
+  "language": "🌐 언어",
+  "choose": "언어를 선택하세요:",
+  "saved": "✅ 언어가 {lang}(으)로 변경되었습니다.",
+  "status": "🤖 봇이 온라인입니다.\n🎲 무작위 반응이 활성화되었습니다.",
+  "no_access": "❌ 이 명령을 사용할 권한이 없습니다.",
+  "users": "👥 Total users: {count}",
+  "user_card": "👤 USER DETAILS\n\n🆔 User ID: {id}\n👤 Name: {name}\n🔗 Username: {username}\n🌐 Language: {language}\n📅 First seen: {first_seen}\n🕒 Last seen: {last_seen}",
+  "broadcast_usage": "Usage:\n/broadcast Your message\n\nOr:\n/broadcast USER_ID Your message",
+  "broadcast_done": "📣 Broadcast finished.\n\n✅ Sent: {sent}\n❌ Failed: {failed}",
+  "broadcast_one_done": "✅ Message sent to {id}.",
+  "broadcast_one_failed": "❌ Could not send the message to {id}.",
+  "not_found": "❌ User not found."
+}

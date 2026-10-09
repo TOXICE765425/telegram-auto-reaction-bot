@@ -1,0 +1,17 @@
+{
+  "welcome": "Hoş geldin, {name}! 👋",
+  "description": "Ben otomatik tepki botuyum. Beni grubuna veya kanalına ekle; yeni mesajlara rastgele tepkiler vereyim.",
+  "add": "➕ Gruba/Kanala ekle",
+  "language": "🌐 Dil",
+  "choose": "Dilini seç:",
+  "saved": "✅ Dil {lang} olarak değiştirildi.",
+  "status": "🤖 Bot çevrimiçi.\n🎲 Rastgele tepkiler etkin.",
+  "no_access": "❌ Bu komutu kullanma yetkiniz yok.",
+  "users": "👥 Total users: {count}",
+  "user_card": "👤 USER DETAILS\n\n🆔 User ID: {id}\n👤 Name: {name}\n🔗 Username: {username}\n🌐 Language: {language}\n📅 First seen: {first_seen}\n🕒 Last seen: {last_seen}",
+  "broadcast_usage": "Usage:\n/broadcast Your message\n\nOr:\n/broadcast USER_ID Your message",
+  "broadcast_done": "📣 Broadcast finished.\n\n✅ Sent: {sent}\n❌ Failed: {failed}",
+  "broadcast_one_done": "✅ Message sent to {id}.",
+  "broadcast_one_failed": "❌ Could not send the message to {id}.",
+  "not_found": "❌ User not found."
+}

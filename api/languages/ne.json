@@ -1,0 +1,17 @@
+{
+  "welcome": "स्वागत छ, {name}! 👋",
+  "description": "म अटो रियाक्सन बोट हुँ। मलाई समूह वा च्यानलमा थप्नुहोस्; म नयाँ सन्देशहरूमा अनियमित रियाक्सन दिनेछु।",
+  "add": "➕ समूह/च्यानलमा थप्नुहोस्",
+  "language": "🌐 भाषा",
+  "choose": "आफ्नो भाषा छान्नुहोस्:",
+  "saved": "✅ भाषा {lang} बनाइयो।",
+  "status": "🤖 बोट चलिरहेको छ।\n🎲 अनियमित रियाक्सन सक्रिय छन्।",
+  "no_access": "❌ यो आदेश प्रयोग गर्ने अनुमति छैन।",
+  "users": "👥 Total users: {count}",
+  "user_card": "👤 USER DETAILS\n\n🆔 User ID: {id}\n👤 Name: {name}\n🔗 Username: {username}\n🌐 Language: {language}\n📅 First seen: {first_seen}\n🕒 Last seen: {last_seen}",
+  "broadcast_usage": "Usage:\n/broadcast Your message\n\nOr:\n/broadcast USER_ID Your message",
+  "broadcast_done": "📣 Broadcast finished.\n\n✅ Sent: {sent}\n❌ Failed: {failed}",
+  "broadcast_one_done": "✅ Message sent to {id}.",
+  "broadcast_one_failed": "❌ Could not send the message to {id}.",
+  "not_found": "❌ User not found."
+}

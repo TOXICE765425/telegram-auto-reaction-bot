@@ -1,0 +1,17 @@
+{
+  "welcome": "स्वागत है, {name}! 👋",
+  "description": "मैं Auto Reaction Bot हूँ। मुझे अपने ग्रुप या चैनल में जोड़ें। मैं नए मैसेज पर random reactions लगाऊँगा।",
+  "add": "➕ अपने Group/Channel में जोड़ें",
+  "language": "🌐 भाषा",
+  "choose": "अपनी भाषा चुनें:",
+  "saved": "✅ भाषा बदलकर {lang} कर दी गई।",
+  "status": "🤖 Auto Reaction Bot चालू है।\n🎲 Random reactions enabled हैं।",
+  "no_access": "❌ आप इस command के लिए authorized नहीं हैं।",
+  "users": "👥 कुल users: {count}",
+  "user_card": "👤 USER DETAILS\n\n🆔 User ID: {id}\n👤 नाम: {name}\n🔗 Username: {username}\n🌐 भाषा: {language}\n📅 पहली बार: {first_seen}\n🕒 आखिरी बार: {last_seen}",
+  "broadcast_usage": "Usage:\n/broadcast अपना message\n\nया:\n/broadcast USER_ID अपना message",
+  "broadcast_done": "📣 Broadcast पूरा हुआ।\n\n✅ भेजा गया: {sent}\n❌ Failed: {failed}",
+  "broadcast_one_done": "✅ {id} को message भेज दिया गया।",
+  "broadcast_one_failed": "❌ {id} को message नहीं भेज सका।",
+  "not_found": "❌ User नहीं मिला।"
+}

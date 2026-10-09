@@ -1,0 +1,17 @@
+{
+  "welcome": "ಸ್ವಾಗತ, {name}! 👋",
+  "description": "ನಾನು ಆಟೋ ರಿಯಾಕ್ಷನ್ ಬಾಟ್. ನನ್ನನ್ನು ಗುಂಪು ಅಥವಾ ಚಾನೆಲ್‌ಗೆ ಸೇರಿಸಿ; ಹೊಸ ಸಂದೇಶಗಳಿಗೆ ಯಾದೃಚ್ಛಿಕ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡುತ್ತೇನೆ.",
+  "add": "➕ ಗುಂಪು/ಚಾನೆಲ್‌ಗೆ ಸೇರಿಸಿ",
+  "language": "🌐 ಭಾಷೆ",
+  "choose": "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ:",
+  "saved": "✅ ಭಾಷೆಯನ್ನು {lang} ಗೆ ಬದಲಿಸಲಾಗಿದೆ.",
+  "status": "🤖 ಬಾಟ್ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಿದೆ.\n🎲 ಯಾದೃಚ್ಛಿಕ ಪ್ರತಿಕ್ರಿಯೆಗಳು ಸಕ್ರಿಯವಾಗಿವೆ.",
+  "no_access": "❌ ಈ ಆಜ್ಞೆ ಬಳಸಲು ಅನುಮತಿ ಇಲ್ಲ.",
+  "users": "👥 Total users: {count}",
+  "user_card": "👤 USER DETAILS\n\n🆔 User ID: {id}\n👤 Name: {name}\n🔗 Username: {username}\n🌐 Language: {language}\n📅 First seen: {first_seen}\n🕒 Last seen: {last_seen}",
+  "broadcast_usage": "Usage:\n/broadcast Your message\n\nOr:\n/broadcast USER_ID Your message",
+  "broadcast_done": "📣 Broadcast finished.\n\n✅ Sent: {sent}\n❌ Failed: {failed}",
+  "broadcast_one_done": "✅ Message sent to {id}.",
+  "broadcast_one_failed": "❌ Could not send the message to {id}.",
+  "not_found": "❌ User not found."
+}

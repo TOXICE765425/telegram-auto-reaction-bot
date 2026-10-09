@@ -1,0 +1,17 @@
+{
+  "welcome": "Selamat datang, {name}! 👋",
+  "description": "Saya bot reaksi otomatis. Tambahkan saya ke grup atau kanal Anda agar saya memberi reaksi acak pada pesan baru.",
+  "add": "➕ Tambahkan ke Grup/Kanal",
+  "language": "🌐 Bahasa",
+  "choose": "Pilih bahasa Anda:",
+  "saved": "✅ Bahasa diubah ke {lang}.",
+  "status": "🤖 Bot sedang online.\n🎲 Reaksi acak diaktifkan.",
+  "no_access": "❌ Anda tidak diizinkan menggunakan perintah ini.",
+  "users": "👥 Total users: {count}",
+  "user_card": "👤 USER DETAILS\n\n🆔 User ID: {id}\n👤 Name: {name}\n🔗 Username: {username}\n🌐 Language: {language}\n📅 First seen: {first_seen}\n🕒 Last seen: {last_seen}",
+  "broadcast_usage": "Usage:\n/broadcast Your message\n\nOr:\n/broadcast USER_ID Your message",
+  "broadcast_done": "📣 Broadcast finished.\n\n✅ Sent: {sent}\n❌ Failed: {failed}",
+  "broadcast_one_done": "✅ Message sent to {id}.",
+  "broadcast_one_failed": "❌ Could not send the message to {id}.",
+  "not_found": "❌ User not found."
+}

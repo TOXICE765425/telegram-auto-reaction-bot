@@ -1,0 +1,17 @@
+{
+  "welcome": "స్వాగతం, {name}! 👋",
+  "description": "నేను ఆటో రియాక్షన్ బాట్‌ను. నన్ను గ్రూప్ లేదా ఛానెల్‌లో చేర్చండి; కొత్త సందేశాలకు యాదృచ్ఛిక రియాక్షన్‌లు ఇస్తాను.",
+  "add": "➕ గ్రూప్/ఛానెల్‌లో చేర్చండి",
+  "language": "🌐 భాష",
+  "choose": "మీ భాషను ఎంచుకోండి:",
+  "saved": "✅ భాష {lang}గా మార్చబడింది.",
+  "status": "🤖 బాట్ ఆన్‌లైన్‌లో ఉంది.\n🎲 యాదృచ్ఛిక రియాక్షన్‌లు ప్రారంభించబడ్డాయి.",
+  "no_access": "❌ ఈ కమాండ్‌కు మీకు అనుమతి లేదు.",
+  "users": "👥 Total users: {count}",
+  "user_card": "👤 USER DETAILS\n\n🆔 User ID: {id}\n👤 Name: {name}\n🔗 Username: {username}\n🌐 Language: {language}\n📅 First seen: {first_seen}\n🕒 Last seen: {last_seen}",
+  "broadcast_usage": "Usage:\n/broadcast Your message\n\nOr:\n/broadcast USER_ID Your message",
+  "broadcast_done": "📣 Broadcast finished.\n\n✅ Sent: {sent}\n❌ Failed: {failed}",
+  "broadcast_one_done": "✅ Message sent to {id}.",
+  "broadcast_one_failed": "❌ Could not send the message to {id}.",
+  "not_found": "❌ User not found."
+}
