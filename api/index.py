@@ -562,14 +562,15 @@ def start_video_gate(message):
         return
 
     caption = (
-        "💗 MISSTI REACTION 💗\n\n"
-        "🎬 Watch the video to continue.\n"
+        "💗 WELCOME TO MISSTI REACTION 💗\n\n"
+        "🔐 Watch the video and press Continue to proceed.\n\n"
         "👑 Developer: Toxice Hacker"
     )
     # Telegram does not expose actual watch progress. The callback is time-gated.
     unlock_at = int(time.time()) + START_GATE_SECONDS
     markup = {"inline_keyboard": [[{
-        "text": "🔒 WATCH VIDEO • TO CONTINUE"
+        "text": "🔒 WATCH FULL VIDEO & CONTINUE ✨",
+        "callback_data": f"watch:{unlock_at}:{uid}"
     }]]}
     try:
         send_video(chat_id, START_GATE_VIDEO_URL, caption, markup)
@@ -949,8 +950,11 @@ def callback(q):
 
         now_ts = int(time.time())
         if now_ts < unlock_at:
-            remaining = unlock_at - now_ts
-            api("answerCallbackQuery", {"callback_query_id": qid, "text": f"🔒 watch And Continue.", "show_alert": True})
+            api("answerCallbackQuery", {
+                "callback_query_id": qid,
+                "text": "🔒 Watch the full video and press Continue to unlock! 💗",
+                "show_alert": True
+            })
             return
 
         api("answerCallbackQuery", {"callback_query_id": qid, "text": "✅ Continue unlocked!"})
