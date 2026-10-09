@@ -94,3 +94,10 @@ A bot cannot read a user's personal list of every group/channel they belong to. 
 ## Security
 
 Never upload `BOT_TOKEN`, `UPSTASH_REDIS_REST_TOKEN`, or other secrets to GitHub.
+
+
+## Intro video gate (56 seconds)
+
+In `api/index.py`, set `START_GATE_VIDEO_URL` to your direct MP4 URL. This video is sent first when a user sends `/start`; the regular rotating 5-video welcome and existing bot features remain after the Continue button is unlocked. `START_GATE_SECONDS = 56` controls the wait duration.
+
+**Telegram limitation:** the bot cannot verify actual video playback or automatically detect when a user finishes watching. The button is time-gated: clicking before 56 seconds shows a locked notice; after 56 seconds, clicking Continue opens the welcome menu. A user could wait without watching.
