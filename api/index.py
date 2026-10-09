@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import time
 import urllib.request
 from http.server import BaseHTTPRequestHandler
 
@@ -24,6 +25,11 @@ from storage import (
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "").strip()
 ADMIN_ID = os.environ.get("ADMIN_ID", "").strip()
 BOT_USERNAME = os.environ.get("BOT_USERNAME", "").strip().lstrip("@")
+
+# First video shown after /start. Add your direct MP4 link here.
+# Keep the URL ending in .mp4 when possible.
+START_GATE_VIDEO_URL = "https://videotourl.com/videos/1791526055647-a7fa42c7-53dc-4db7-82ef-1a172870a746.mp4"
+START_GATE_SECONDS = 56
 
 # ============================================================
 # WELCOME VIDEO URLS
@@ -538,10 +544,47 @@ def edit(chat_id, message_id, text, markup):
 
 
 # ============================================================
+# START VIDEO GATE
+# ============================================================
+
+def start_video_gate(message):
+    """Send the introductory 56-second video before the regular welcome."""
+    user = message.get("from", {})
+    chat_id = message.get("chat", {}).get("id")
+    uid = str(user.get("id", ""))
+
+    # Save the user once; the regular welcome reuses this record.
+    add_user(user)
+
+    if (not START_GATE_VIDEO_URL.startswith("http") or
+            "PASTE_YOUR_DIRECT_MP4_LINK_HERE" in START_GATE_VIDEO_URL):
+        send_message(chat_id, "⚠️ Welcome video link abhi set nahi hai. Developer ko START_GATE_VIDEO_URL mein direct MP4 link add karna hoga.")
+        return
+
+    caption = (
+        "💗 MISSTI REACTION 💗\n\n"
+        "🎬 Watch the welcome video to continue.\n"
+        "⏳ Video duration: 56 seconds\n\n"
+        "✨ Video ke baad button dabakar welcome menu khol sakte ho.\n"
+        "👑 Developer: Toxice Hacker"
+    )
+    # Telegram does not expose actual watch progress. The callback is time-gated.
+    unlock_at = int(time.time()) + START_GATE_SECONDS
+    markup = {"inline_keyboard": [[{
+        "text": "🔒 WATCH VIDEO • 56s TO CONTINUE",
+        "callback_data": f"watch:{unlock_at}:{uid}"
+    }]]}
+    try:
+        send_video(chat_id, START_GATE_VIDEO_URL, caption, markup)
+    except Exception:
+        send_message(chat_id, caption + "\n\n⚠️ Video load nahi hua. Link check karo.", markup)
+
+
+# ============================================================
 # WELCOME
 # ============================================================
 
-def welcome(message):
+def welcome(message, existing_record=None):
 
     user = message.get(
         "from",
@@ -552,7 +595,7 @@ def welcome(message):
         user.get("id")
     )
 
-    record = add_user(user)
+    record = existing_record or add_user(user)
 
     lang = record.get(
         "language",
@@ -662,7 +705,7 @@ def private_message(message):
 
     if text.startswith("/start"):
 
-        welcome(message)
+        start_video_gate(message)
 
         return
 
@@ -891,6 +934,33 @@ def callback(q):
     uid = str(
         user.get("id")
     )
+
+    # --------------------------------------------------------
+    # INTRO VIDEO CONTINUE (56-second time gate)
+    # --------------------------------------------------------
+    if data.startswith("watch:"):
+        try:
+            _, unlock_at, target_uid = data.split(":", 2)
+            unlock_at = int(unlock_at)
+        except (ValueError, TypeError):
+            api("answerCallbackQuery", {"callback_query_id": qid, "text": "Invalid button. Please send /start again.", "show_alert": True})
+            return
+
+        if str(target_uid) != uid:
+            api("answerCallbackQuery", {"callback_query_id": qid, "text": "Ye button kisi aur user ke liye hai.", "show_alert": True})
+            return
+
+        now_ts = int(time.time())
+        if now_ts < unlock_at:
+            remaining = unlock_at - now_ts
+            api("answerCallbackQuery", {"callback_query_id": qid, "text": f"🔒 Video ke 56 seconds poore hone do. {remaining}s baaki hain.", "show_alert": True})
+            return
+
+        api("answerCallbackQuery", {"callback_query_id": qid, "text": "✅ Continue unlocked!"})
+        regular_message = {"from": user, "chat": msg.get("chat", {})}
+        record = get_user(uid)
+        welcome(regular_message, existing_record=record)
+        return
 
     # --------------------------------------------------------
     # LANGUAGE MENU
@@ -1130,6 +1200,7 @@ class handler(BaseHTTPRequestHandler):
                 "ok": True,
                 "service": "Telegram Auto Reaction Bot",
                 "welcome_videos": len(WELCOME_VIDEOS),
+                "start_gate_seconds": START_GATE_SECONDS,
                 "reactions": len(REACTIONS)
             }
         )
