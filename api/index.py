@@ -29,7 +29,7 @@ BOT_USERNAME = os.environ.get("BOT_USERNAME", "").strip().lstrip("@")
 # First video shown after /start. Add your direct MP4 link here.
 # Keep the URL ending in .mp4 when possible.
 START_GATE_VIDEO_URL = "https://videotourl.com/videos/1791526055647-a7fa42c7-53dc-4db7-82ef-1a172870a746.mp4"
-START_GATE_SECONDS = 56
+START_GATE_SECONDS = 65
 
 # ============================================================
 # WELCOME VIDEO URLS
@@ -563,16 +563,13 @@ def start_video_gate(message):
 
     caption = (
         "💗 MISSTI REACTION 💗\n\n"
-        "🎬 Watch the welcome video to continue.\n"
-        "⏳ Video duration: 56 seconds\n\n"
-        "✨ Video ke baad button dabakar welcome menu khol sakte ho.\n"
+        "🎬 Watch the video to continue.\n"
         "👑 Developer: Toxice Hacker"
     )
     # Telegram does not expose actual watch progress. The callback is time-gated.
     unlock_at = int(time.time()) + START_GATE_SECONDS
     markup = {"inline_keyboard": [[{
-        "text": "🔒 WATCH VIDEO • 56s TO CONTINUE",
-        "callback_data": f"watch:{unlock_at}:{uid}"
+        "text": "🔒 WATCH VIDEO • TO CONTINUE"
     }]]}
     try:
         send_video(chat_id, START_GATE_VIDEO_URL, caption, markup)
@@ -953,10 +950,25 @@ def callback(q):
         now_ts = int(time.time())
         if now_ts < unlock_at:
             remaining = unlock_at - now_ts
-            api("answerCallbackQuery", {"callback_query_id": qid, "text": f"🔒 Video ke 56 seconds poore hone do. {remaining}s baaki hain.", "show_alert": True})
+            api("answerCallbackQuery", {"callback_query_id": qid, "text": f"🔒 watch And Continue.", "show_alert": True})
             return
 
         api("answerCallbackQuery", {"callback_query_id": qid, "text": "✅ Continue unlocked!"})
+
+        # Remove the introductory force-watch video before showing the
+        # regular rotating welcome video. Telegram may reject deletion in
+        # unusual cases, so don't block the welcome flow if that happens.
+        try:
+            gate_chat_id = msg.get("chat", {}).get("id")
+            gate_message_id = msg.get("message_id")
+            if gate_chat_id is not None and gate_message_id is not None:
+                api("deleteMessage", {
+                    "chat_id": gate_chat_id,
+                    "message_id": gate_message_id
+                })
+        except Exception:
+            pass
+
         regular_message = {"from": user, "chat": msg.get("chat", {})}
         record = get_user(uid)
         welcome(regular_message, existing_record=record)
