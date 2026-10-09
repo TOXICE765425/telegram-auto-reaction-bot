@@ -16,6 +16,8 @@ from storage import (
     get as get_user,
     get_all_user_ids,
     get_users,
+    get_gate_unlock,
+    set_gate_unlock,
 )
 
 # ============================================================
@@ -74,7 +76,7 @@ REACTIONS = [
     "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩",
     "🙏", "⚡", "🏆", "🌚", "🌭", "💔", "🍾", "💯",
     "🤣", "😎", "😍", "😘", "😇", "😡", "🤗", "🫡",
-    "🫶", "✨", "🎊", "❤️"
+    "🫶", "✨", "🎊", "❤️", "🫣", "🤷", "😛", "🥴"
 ]
 
 
@@ -119,173 +121,21 @@ LANGUAGES = {
 
 
 # ============================================================
-# TEXT
+# LANGUAGE FILES
 # ============================================================
+# Every language has its own JSON file in api/languages/.
+# Missing keys safely fall back to English in t().
 
-TEXT = {
+LANGUAGE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "languages")
+TEXT = {}
 
-    "en": {
-        "welcome": "Welcome, {name}! 👋",
-
-        "description":
-        "I am an Auto Reaction Bot. Add me to your group or channel "
-        "and I will automatically react to new messages with random reactions.",
-
-        "add": "➕ Add to your Group/Channel",
-        "language": "🌐 Language",
-        "choose": "Choose your language:",
-
-        "saved": "✅ Language changed to {lang}.",
-
-        "status":
-        "🤖 Auto Reaction Bot is online.\n"
-        "🎲 Random reactions are enabled.",
-
-        "no_access":
-        "❌ You are not authorized to use this command.",
-
-        "users":
-        "👥 Total users: {count}",
-
-        "user_card":
-        "👤 USER DETAILS\n\n"
-        "🆔 User ID: {id}\n"
-        "👤 Name: {name}\n"
-        "🔗 Username: {username}\n"
-        "🌐 Language: {language}\n"
-        "📅 First seen: {first_seen}\n"
-        "🕒 Last seen: {last_seen}",
-
-        "broadcast_usage":
-        "Usage:\n"
-        "/broadcast Your message\n\n"
-        "Or:\n"
-        "/broadcast USER_ID Your message",
-
-        "broadcast_done":
-        "📣 Broadcast finished.\n\n"
-        "✅ Sent: {sent}\n"
-        "❌ Failed: {failed}",
-
-        "broadcast_one_done":
-        "✅ Message sent to {id}.",
-
-        "broadcast_one_failed":
-        "❌ Could not send the message to {id}.",
-
-        "not_found":
-        "❌ User not found."
-    },
-
-
-    "hi": {
-        "welcome": "स्वागत है, {name}! 👋",
-
-        "description":
-        "मैं Auto Reaction Bot हूँ। मुझे अपने ग्रुप या चैनल में जोड़ें। "
-        "मैं नए मैसेज पर random reactions लगाऊँगा।",
-
-        "add": "➕ अपने Group/Channel में जोड़ें",
-        "language": "🌐 भाषा",
-        "choose": "अपनी भाषा चुनें:",
-
-        "saved": "✅ भाषा बदलकर {lang} कर दी गई।",
-
-        "status":
-        "🤖 Auto Reaction Bot चालू है।\n"
-        "🎲 Random reactions enabled हैं।",
-
-        "no_access":
-        "❌ आप इस command के लिए authorized नहीं हैं।",
-
-        "users":
-        "👥 कुल users: {count}",
-
-        "user_card":
-        "👤 USER DETAILS\n\n"
-        "🆔 User ID: {id}\n"
-        "👤 नाम: {name}\n"
-        "🔗 Username: {username}\n"
-        "🌐 भाषा: {language}\n"
-        "📅 पहली बार: {first_seen}\n"
-        "🕒 आखिरी बार: {last_seen}",
-
-        "broadcast_usage":
-        "Usage:\n"
-        "/broadcast अपना message\n\n"
-        "या:\n"
-        "/broadcast USER_ID अपना message",
-
-        "broadcast_done":
-        "📣 Broadcast पूरा हुआ।\n\n"
-        "✅ भेजा गया: {sent}\n"
-        "❌ Failed: {failed}",
-
-        "broadcast_one_done":
-        "✅ {id} को message भेज दिया गया।",
-
-        "broadcast_one_failed":
-        "❌ {id} को message नहीं भेज सका।",
-
-        "not_found":
-        "❌ User नहीं मिला।"
-    },
-
-
-    "hinglish": {
-        "welcome": "Welcome, {name}! 👋",
-
-        "description":
-        "Main Auto Reaction Bot hoon. Mujhe apne group ya channel me add karo. "
-        "Main naye messages par random reactions lagaunga.",
-
-        "add": "➕ Add to your Group/Channel",
-        "language": "🌐 Language",
-        "choose": "Apni language choose karo:",
-
-        "saved":
-        "✅ Language {lang} set kar di gayi.",
-
-        "status":
-        "🤖 Auto Reaction Bot online hai.\n"
-        "🎲 Random reactions enabled hain.",
-
-        "no_access":
-        "❌ Aap authorized nahi ho.",
-
-        "users":
-        "👥 Total users: {count}",
-
-        "user_card":
-        "👤 USER DETAILS\n\n"
-        "🆔 User ID: {id}\n"
-        "👤 Name: {name}\n"
-        "🔗 Username: {username}\n"
-        "🌐 Language: {language}\n"
-        "📅 First seen: {first_seen}\n"
-        "🕒 Last seen: {last_seen}",
-
-        "broadcast_usage":
-        "Usage:\n"
-        "/broadcast Your message\n\n"
-        "Ya:\n"
-        "/broadcast USER_ID Your message",
-
-        "broadcast_done":
-        "📣 Broadcast complete.\n\n"
-        "✅ Sent: {sent}\n"
-        "❌ Failed: {failed}",
-
-        "broadcast_one_done":
-        "✅ Message {id} ko bhej diya.",
-
-        "broadcast_one_failed":
-        "❌ Message {id} ko nahi bhej saka.",
-
-        "not_found":
-        "❌ User nahi mila."
-    }
-}
+for _language_code in LANGUAGES:
+    _language_path = os.path.join(LANGUAGE_DIR, f"{_language_code}.json")
+    try:
+        with open(_language_path, "r", encoding="utf-8") as _language_file:
+            TEXT[_language_code] = json.load(_language_file)
+    except (OSError, json.JSONDecodeError):
+        TEXT[_language_code] = {}
 
 
 # ============================================================
@@ -548,28 +398,40 @@ def edit(chat_id, message_id, text, markup):
 # ============================================================
 
 def start_video_gate(message):
-    """Send the introductory 56-second video before the regular welcome."""
+    """Show the intro gate only when the user's 24-hour unlock has expired."""
     user = message.get("from", {})
     chat_id = message.get("chat", {}).get("id")
     uid = str(user.get("id", ""))
 
-    # Save the user once; the regular welcome reuses this record.
-    add_user(user)
+    # process() already saves private users. Read the latest persisted record.
+    record = get_user(uid) or add_user(user)
+
+    # A completed gate remains unlocked for 24 hours, including across redeploys.
+    try:
+        unlocked_until = int(get_gate_unlock(uid) or 0)
+    except (TypeError, ValueError):
+        unlocked_until = 0
+
+    if int(time.time()) < unlocked_until:
+        welcome(message, existing_record=record)
+        return
 
     if (not START_GATE_VIDEO_URL.startswith("http") or
             "PASTE_YOUR_DIRECT_MP4_LINK_HERE" in START_GATE_VIDEO_URL):
         send_message(chat_id, "⚠️ Welcome video link abhi set nahi hai. Developer ko START_GATE_VIDEO_URL mein direct MP4 link add karna hoga.")
         return
 
+    lang = record.get("language", "en")
+    name = user.get("first_name") or "there"
     caption = (
-        "💗 WELCOME TO MISSTI REACTION 💗\n\n"
-        "🔐 Watch the video and press Continue to proceed.\n\n"
+        f"{t(lang, 'welcome', name=name)}\n\n"
+        f"{t(lang, 'description')}\n\n"
+        f"{t(lang, 'gate_instruction')}\n\n"
         "👑 Developer: Toxice Hacker"
     )
-    # Telegram does not expose actual watch progress. The callback is time-gated.
     unlock_at = int(time.time()) + START_GATE_SECONDS
     markup = {"inline_keyboard": [[{
-        "text": "🔒 WATCH FULL VIDEO & CONTINUE ✨",
+        "text": t(lang, "continue"),
         "callback_data": f"watch:{unlock_at}:{uid}"
     }]]}
     try:
@@ -934,7 +796,7 @@ def callback(q):
     )
 
     # --------------------------------------------------------
-    # INTRO VIDEO CONTINUE (56-second time gate)
+    # INTRO VIDEO CONTINUE (65-second time gate)
     # --------------------------------------------------------
     if data.startswith("watch:"):
         try:
@@ -949,6 +811,15 @@ def callback(q):
             return
 
         now_ts = int(time.time())
+        # Expire old gate buttons so a stale button cannot bypass a future gate.
+        if now_ts > unlock_at + 86400:
+            api("answerCallbackQuery", {
+                "callback_query_id": qid,
+                "text": "This gate expired. Please send /start again.",
+                "show_alert": True
+            })
+            return
+
         if now_ts < unlock_at:
             api("answerCallbackQuery", {
                 "callback_query_id": qid,
@@ -957,6 +828,9 @@ def callback(q):
             })
             return
 
+        # Start a fresh 24-hour unlock window only after the timer has elapsed.
+        # Redis stores the expiry so redeploys and separate serverless instances retain it.
+        set_gate_unlock(uid, now_ts + 86400)
         api("answerCallbackQuery", {"callback_query_id": qid, "text": "✅ Continue unlocked!"})
 
         # Remove the introductory force-watch video before showing the

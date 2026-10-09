@@ -6,6 +6,7 @@ import urllib.request
 URL = os.environ.get("UPSTASH_REDIS_REST_URL","").strip()
 TOKEN = os.environ.get("UPSTASH_REDIS_REST_TOKEN","").strip()
 MEMORY = {}
+GATE_MEMORY = {}
 
 def now():
     return time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
@@ -75,3 +76,26 @@ def get_users():
         u=get(uid)
         if u: out.append(u)
     return out
+
+
+def get_gate_unlock(uid):
+    """Return the UTC epoch when this user may skip the gate until."""
+    key = f"bot:gate:{uid}"
+    try:
+        r = command(["GET", key])
+        if r and r.get("result") is not None:
+            return int(r["result"])
+    except Exception:
+        pass
+    value = GATE_MEMORY.get(str(uid))
+    return int(value) if value is not None else 0
+
+
+def set_gate_unlock(uid, expires_at):
+    """Persist the gate unlock in Redis for 24 hours."""
+    key = f"bot:gate:{uid}"
+    GATE_MEMORY[str(uid)] = int(expires_at)
+    try:
+        command(["SET", key, str(int(expires_at)), "EX", 86400])
+    except Exception:
+        pass
